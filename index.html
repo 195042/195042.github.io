@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>○×ゲーム</title>
+  <script src="http://cdn.jsdelivr.net/npm/vue@2,5,17/dist/vue,js"></script>
+</head>
+<body>
+    <h1 style="margin-left:10%;margin-right:10%;">○×ゲーム</h1>
+    <h2 style="margin-left:4%;margin-right:10%;">「ゲーム開始」ボタンを押したらスタート</h2>
+    <input type="button"
+    style="width:30%;padding:8px;font-size:24px;"
+    value="ゲーム開始" onclick="Sample3()">
+    <h1 id="xo" style="margin-left:12%;margin-right:10%;"></h1>
+    <h1 id="win" style="margin-left:11%;margin-right:10%;"></h1>
+
+    <table border="1" style="margin-left:7.5%;margin-right:10%;">
+        <tr>
+            <th id="Passage1" width="80" height="80" style = "font-size: 36px;"></th>
+            <th id="Passage2" width="80" height="80" style = "font-size: 36px;"></th>
+            <th id="Passage3" width="80" height="80" style = "font-size: 36px;"></th>
+        </tr>
+        <tr>
+            <th id="Passage4" width="80" height="80" style = "font-size: 36px;"></th>
+            <th id="Passage5" width="80" height="80" style = "font-size: 36px;"></th>
+            <th id="Passage6" width="80" height="80" style = "font-size: 36px;"></th>
+        </tr>
+        <tr>
+            <th id="Passage7" width="80" height="80" style = "font-size: 36px;"></th>
+            <th id="Passage8" width="80" height="80" style = "font-size: 36px;"></th>
+            <th id="Passage9" width="80" height="80" style = "font-size: 36px;"></th>
+        </tr>
+    </table>
+
+    <p style="margin-left:10%;margin-right:10%;">
+         <input type="button" value="　　　" id="count11" onclick="c11();">
+         <input type="button" value="　　　" id="count12" onclick="c12();">
+         <input type="button" value="　　　" id="count13" onclick="c13();"><br>
+         <input type="button" value="　　　" id="count21" onclick="c21();">
+         <input type="button" value="　　　" id="count22" onclick="c22();">
+         <input type="button" value="　　　" id="count23" onclick="c23();"><br>
+         <input type="button" value="　　　" id="count31" onclick="c31();">
+         <input type="button" value="　　　" id="count32" onclick="c32();">
+         <input type="button" value="　　　" id="count33" onclick="c33();">
+    </p>
+
+    <p style="margin-left:10.5%;margin-right:9.5%;">
+         <input type="button" 
+         style="width:10%;padding:8px;font-size:16px;" 
+         value="リセット" onclick="window.location.reload();" />
+
+    </p>
+
+<script>
+var xor = 0;
+var lock = 1;
+ function Sample3() {
+     var xor = 1;
+     lock = 0;
+     if(xor == 0){
+         var xo = "○の番"
+     }else{
+         var xo = "×の番"
+     }
+     document.getElementById("xo").innerHTML = xo;
+     document.getElementById("count11").disabled = false;
+     document.getElementById("count12").disabled = false;
+     document.getElementById("count13").disabled = false;
+     document.getElementById("count21").disabled = false;
+     document.getElementById("count22").disabled = false;
+     document.getElementById("count23").disabled = false;
+     document.getElementById("count31").disabled = false;
+     document.getElementById("count32").disabled = false;
+     document.getElementById("count33").disabled = false;
+ }
+
+ function fff(){
+     document.getElementById("count11").disabled = true;
+     document.getElementById("count12").disabled = true;
+     document.getElementById("count13").disabled = true;
+     document.getElementById("count21").disabled = true;
+     document.getElementById("count22").disabled = true;
+     document.getElementById("count23").disabled = true;
+     document.getElementById("count31").disabled = true;
+     document.getElementById("count32").disabled = true;
+     document.getElementById("count33").disabled = true;
+ }
+
+ var array = [[0,0,0],[0,0,0],[0,0,0]];
+ function judge(){
+    var win = "Playing..."
+    var j1 = [0,0,0] , j2 = [0,0,0] , j3 = [0,0,0] , y = [0,0,0];
+    var j1_s = 0 , j2_s = 0 , j3_s = 0
+    var ok = 0;
+     for(var i = 0; i < 3; i++){
+         j1[i] = array[0][i];
+         j1_s = j1_s + j1[i];
+
+         j2[i] = array[1][i];
+         j2_s = j2_s + j2[i];
+
+         j3[i] = array[2][i];
+         j3_s = j3_s + j3[i];
+
+         y[i] = j1[i] + j2[i] + j3[i]
+     }
+
+     if(j1_s == 30 || j2_s == 30 || j3_s == 30 || y[0] == 30 || y[1] == 30 || y[2] == 30){
+         var win = "×の勝ち";
+         fff()
+     }else if(j1_s == 6 || j2_s == 6 || j3_s == 6 || y[0] == 6 || y[1] == 6 || y[2] == 6){
+         var win = "○の勝ち";
+         fff()
+     }else if(j1[0] == 10 && j2[1] == 10 && j3[2] == 10){
+         var win = "xの勝ち";
+         fff()
+     }else if(j1[0] == 2 && j2[1] == 2 && j3[2] == 2){
+         var win = "○の勝ち";
+         fff()
+     }else if(j1[2] == 10 && j2[1] == 10 && j3[0] == 10){
+         var win = "×の勝ち";
+         fff()
+     }else if(j1[2] == 2 && j2[1] == 2 && j3[0] == 2){
+         var win = "○の勝ち";
+         fff()
+     }else{
+        for(var i = 0; i < 3; i++){
+            if(j1[i] > 0 && j2[i] > 0 && j3[i] > 0){
+                ok = ok + 1;
+            }
+        }
+     }
+     if(ok == 3){
+         var win ="引き分け";
+     }
+     document.getElementById("win").innerHTML = win;
+ }
+
+ function c11() {
+     if(lock == 0){
+     document.getElementById("count11").disabled = true;   // 開始ボタンの無効化
+    if(xor == 0 && lock == 0){
+        cell_11 = "X";
+        xor = 1;
+        xo = "○の番"
+        array[0][0] = 10;
+    }else{
+        cell_11 = "O";
+        xor = 0;
+        array[0][0] = 2;
+    }
+     document.getElementById("Passage1").innerHTML = cell_11;
+     document.getElementById("xo").innerHTML = xo;
+     judge()
+ }
+}
+
+ function c12() {
+     if(lock == 0){
+     document.getElementById("count12").disabled = true;   // 開始ボタンの無効化
+    if(xor == 0 && lock == 0){
+        cell_12 = "X";
+        xor = 1;
+        xo = "○の番"
+        array[0][1] = 10;
+    }else{
+        cell_12 = "O";
+        xor = 0;
+        xo = "×の番"
+        array[0][1] = 2;
+    }
+     document.getElementById("Passage2").innerHTML = cell_12;
+     document.getElementById("xo").innerHTML = xo;
+     judge()
+ }
+}
+
+ function c13() {
+     if(lock == 0){
+     document.getElementById("count13").disabled = true;   // 開始ボタンの無効化
+    if(xor == 0 && lock == 0){
+        cell_13 = "X";
+        xor = 1;
+        xo = "○の番"
+        array[0][2] = 10;
+    }else{
+        cell_13 = "O";
+        xor = 0;
+        xo = "×の番"
+        array[0][2] = 2;
+    }
+     document.getElementById("Passage3").innerHTML = cell_13;
+     document.getElementById("xo").innerHTML = xo;
+     judge()
+ }
+}
+
+ function c21() {
+     if(lock == 0){
+     document.getElementById("count21").disabled = true;   // 開始ボタンの無効化
+    if(xor == 0 && lock == 0){
+        cell_21 = "X";
+        xor = 1;
+        xo = "○の番"
+        array[1][0] = 10;
+    }else{
+        cell_21 = "O";
+        xor = 0;
+        xo = "×の番"
+        array[1][0] = 2;
+    }
+     document.getElementById("Passage4").innerHTML = cell_21;
+     document.getElementById("xo").innerHTML = xo;
+     judge()
+ }
+}
+
+ function c22() {
+     if(lock == 0){
+     document.getElementById("count22").disabled = true;   // 開始ボタンの無効化
+    if(xor == 0 && lock == 0){
+        cell_22 = "X";
+        xor = 1;
+        xo = "○の番"
+        array[1][1] = 10;
+    }else{
+        cell_22 = "O";
+        xor = 0;
+        xo = "×の番"
+        array[1][1] = 2;
+    }
+     document.getElementById("Passage5").innerHTML = cell_22;
+     document.getElementById("xo").innerHTML = xo;
+     judge()
+ }
+}
+
+ function c23() {
+     if(lock == 0){
+     document.getElementById("count23").disabled = true;   // 開始ボタンの無効化
+    if(xor == 0 && lock == 0){
+        cell_23 = "X";
+        xor = 1;
+        xo = "○の番"
+        array[1][2] = 10;
+    }else{
+        cell_23 = "O";
+        xor = 0;
+        xo = "×の番"
+        array[1][2] = 2;
+    }
+     document.getElementById("Passage6").innerHTML = cell_23;
+     document.getElementById("xo").innerHTML = xo;
+     judge()
+ }
+}
+
+ function c31() {
+     if(lock == 0){
+     document.getElementById("count31").disabled = true;   // 開始ボタンの無効化
+    if(xor == 0 && lock == 0){
+        cell_31 = "X";
+        xor = 1;
+        xo = "○の番"
+        array[2][0] = 10;
+    }else{
+        cell_31 = "O";
+        xor = 0;
+        xo = "×の番"
+        array[2][0] = 2;
+    }
+     document.getElementById("Passage7").innerHTML = cell_31;
+     document.getElementById("xo").innerHTML = xo;
+     judge()
+ }
+}
+
+ function c32() {
+     if(lock == 0){
+     document.getElementById("count32").disabled = true;   // 開始ボタンの無効化
+    if(xor == 0 && lock == 0){
+        cell_32 = "X";
+        xor = 1;
+        xo = "○の番"
+        array[2][1] = 10;
+    }else{
+        cell_32 = "O";
+        xor = 0;
+        xo = "×の番"
+        array[2][1] = 2;
+    }
+     document.getElementById("Passage8").innerHTML = cell_32;
+     document.getElementById("xo").innerHTML = xo;
+     judge()
+ }
+}
+
+ function c33() {
+     if(lock == 0){
+     document.getElementById("count33").disabled = true;   // 開始ボタンの無効化
+    if(xor == 0 && lock == 0){
+        cell_33 = "X";
+        xor = 1;
+        xo = "○の番"
+        array[2][2] = 10;
+    }else{
+        cell_33 = "O";
+        xor = 0;
+        xo = "×の番"
+        array[2][2] =2;
+    }
+     document.getElementById("Passage9").innerHTML = cell_33;
+     document.getElementById("xo").innerHTML = xo;
+     judge()
+ }
+}
+</script>
+
+</body>
+</html>
+
+
